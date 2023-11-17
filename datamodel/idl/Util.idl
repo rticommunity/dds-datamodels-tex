@@ -1,0 +1,258 @@
+// copyright 2017, 2018 BAE Systems, Thales Group, Object Management Group Inc
+// copyright 2022, 2023 BAE Systems, Real-Time Innovations, SimVentions, Object Management Group Inc
+
+#ifndef ORGOMGTEXDATAPAYLOADUTILDEFVAR
+#define ORGOMGTEXDATAPAYLOADUTILDEFVAR
+
+module org
+{
+
+  module omg
+  {
+
+    module tex
+    {
+
+      module DataPayload
+      {
+
+        // This package gathers several datatypes and enumeration used by other packages.
+        module Util
+        {
+
+          // An angle is the measure of a rotation. The actual unit of this measure is
+          // specified elsewhere (see AngleUnit).
+          // Implementation details are postponed to PSM-level choices.
+          typedef double Angle;
+
+          // Enumeration of the known Angle Units: radian, degree and grad.
+          enum AngleUnit
+          {
+            // Radian.
+            RAD,
+            // Degree.
+            DEG,
+            // Grad.
+            GRAD
+          };
+
+          // Enumeration of the coordinate systems, which compliant implementations may
+          // implement.
+          // (from [OARIS])
+          enum CoordinateKind
+          {
+            // Cartesian Coordinates (x, y, z).
+            CARTESIAN,
+            // Polar coordinates (azimuth, elevation, range).
+            POLAR,
+            // Geodetic coordinates (latitude, longitude, altitude).
+            GEODETIC
+          };
+
+          // Enumeration of the coordinate systems, which compliant implementations may use. A
+          // compliant implementation may not fully support all of these coordinate systems. 
+          // (from [OARIS])
+          enum CoordinateOrientation
+          {
+            // Valid for Polar Coordinate Kind Azimuth has origin (0.0) at North, positive
+            // clockwise, measured in the horizontal plane Elevation has origin (0.0) at the
+            // Horizontal, positive up, measured in the vertical plane. 
+            NORTH_HORIZONTAL,
+            // Valid for Polar Coordinate Kind Azimuth has origin (0.0) at North, clockwise
+            // positive, measured in the horizontal plane Elevation has origin (0.0) when
+            // pointing directly down, and 180.0 degrees when pointing directly up, measured in
+            // the vertical plane. 
+            NORTH_DOWN,
+            // Valid for Cartesian coordinate type x is positive to the East y is positive to
+            // the North z is positive up.
+            EAST_NORTH_UP,
+            // Valid for Cartesian coordinate type x is positive to the East y is positive to
+            // the North z is positive down.
+            EAST_NORTH_DOWN,
+            // Valid for Cartesian coordinate type x is positive to the North y is positive to
+            // the East z is positive up.
+            NORTH_EAST_UP,
+            // Valid for Cartesian coordinate type x is positive to the North y is positive to
+            // the East z is positive down.
+            NORTH_EAST_DOWN,
+            // Cartesian system with origin at centre of the Earth (absolute reference point) x
+            // positive through Greenwich meridian y positive through 90 degrees east (of
+            // Greenwich meridian) z positive through north pole x &amp; y are in the equatorial
+            // plane.
+            EARTH_CENTRED,
+            // WGS84 has unique well-defined orientation (NIMA Technical Report TR8350.2).
+            LAT_LONG_HEIGHT,
+            // Valid for Polar Coordinate Kind Azimuth has origin (0.0) ahead of the relevant
+            // entity, positive clockwise, measured in the horizontal plane Elevation has origin
+            // (0.0) at the Horizontal, positive up, measured in the vertical plane. 
+            AHEAD_HORIZONTAL
+          };
+
+          // Enumeration of the origins of the coordinate system.
+          // (from [OARIS])
+          enum CoordinateOrigin
+          {
+            // The origin of the coordinate system is ‘well known’ reference point for the
+            // platform (on which the TACSIT system reside). 
+            PLATFORM_REFERENCE_POINT,
+            // The origin for the coordinate system is a fixed point in Earth (e.g., WGS84)
+            // coordinates. This point is known to the TACSIT system using the interface by
+            // means beyond the scope of the interface. 
+            ABSOLUTE_REFERENCE_POINT,
+            // This value signifies that the origin for the coordinate system is well-defined
+            // with respect to the Earth by the coordinate system. E.g. centre of the Earth for
+            // Earth-Centred Earth-Fixed or the WGS84 spheroid for WGS84 
+            EARTH_REFERENCED,
+            // The origin of the coordinate system is defined by the position of the relevant
+            // entity.
+            ENTITY_REFERENCED
+          };
+
+          // DateTime is a specific time.
+          // Implementation details (e.g. ISO 8601) are postponed to PSM-level choices.
+          typedef unsigned long long DateTime;
+
+          // A distance is a measure of length. The actual unit of this measure is specified
+          // elsewhere (see DistanceUnit).
+          // Implementation details are postponed to PSM-level choices.
+          typedef double Distance;
+
+          // Enumeration of the known Distance Units: International system (m), nautical mile
+          // and mile.
+          enum DistanceUnit
+          {
+            // International System: meter.
+            Meter,
+            // Nautical Mile: "A nautical mile (symbol M, NM or nmi) is a unit of distance, set
+            // by international agreement as being exactly 1,852 meters (about 6,076 feet)."
+            // (https://en.wikipedia.org/wiki/Nautical_mile)
+            NauticalMile,
+            // Mile. The mile is an English unit of length equal to 1,760 yards and standardized
+            // as exactly 1,609.344 meters by international agreement in 1959.
+            // (https://en.wikipedia.org/wiki/Mile)
+            Mile
+          };
+
+          // Identity according to STANAG 5516.
+          enum Identity
+          {
+            // No identity assessment has yet been made
+            PENDING,
+            // The entity's identity is not yet determined
+            UNKNOWN,
+            // The entity is assumed to be friendly
+            ASSUMED_FRIEND,
+            // The entity is friendly
+            FRIEND,
+            // The entity is neutral
+            NEUTRAL,
+            // The entity is considered suspicious
+            SUSPECT,
+            // The entity is considered hostile
+            HOSTILE
+          };
+
+          // A string type
+          // A map projection is a systematic transformation of the latitudes and longitudes
+          // of locations on the surface of a sphere or an ellipsoid into locations on a
+          // plane. It is specified as a string naming the projection used, e.g. WGS84.
+          typedef string Projection;
+
+          // A speed is a measure of how fast something moves. The actual unit of this measure
+          // is specified elsewhere (see SpeedUnit).
+          // Implementation details are postponed to PSM-level choices.
+          typedef double Speed;
+
+          // Enumeration of the known Speed Units: International system (m/s), nautical knot
+          // and mile per hour.
+          enum SpeedUnit
+          {
+            // International System: meter per second.
+            MetersPerSecond,
+            // The knot is a unit of speed equal to one nautical mile (1.852 km) per hour,
+            // approximately 1.151 mph.
+            // (https://en.wikipedia.org/wiki/Knot_%28unit%29)
+            Knot,
+            // Miles per hour is an imperial and United States customary unit of speed
+            // expressing the number of statute miles covered in one hour.
+            // (https://en.wikipedia.org/wiki/Miles_per_hour)
+            // The English statute mile was established by a Weights and Measures Act of
+            // Parliament in 1593 during the reign of Queen Elizabeth I.
+            // (https://en.wikipedia.org/wiki/Mile#Statute_mile)
+            // 1 mph  = 0.44704 m/s
+            MilesPerHour
+          };
+
+          // A string type
+          // An URI (Uniform Resource Identifier) is used to identify resources (entity,
+          // groups...). It is to be formatted as defined by RFC3986.
+          // Implementation details (such as size limitation) are postponed to PSM-level
+          // choices.
+          typedef string URI;
+
+          // A string type
+          // An URL (Uniform Resource Locator) is used to reference resources. It is to be
+          // formatted as defined by RFC3986.
+          // Implementation details (such as size limitation) are postponed to PSM-level
+          // choices.
+          typedef string URL;
+
+          typedef double Variance;
+
+          // The sensor tracking environment
+          enum Environment
+          {
+            // The entity is in the air environment
+            AIR,
+            // The entity is on land
+            LAND,
+            // The entity is in space
+            SPACE,
+            // The entity is on the surface of the sea
+            SURFACE,
+            // The entity is under the sea
+            SUBSURFACE
+          };
+
+          // The detection lifecycle phase of the track
+          enum TrackPhase
+          {
+            // Track provided based on extrapolated position (dead-reckoned)
+            DEAD_RECKONED,
+            // Track has been lost
+            LOST,
+            // Regular update of new and existing track
+            TRACKED,
+            // No new measurements were available to contribute to this track at the last
+            // opportunity to do so. It is expected that should such measurements be made at the
+            // next opportunity, these will successfully update the track.
+            INACTIVE
+          };
+
+          // A string type
+          // Typdef for bounded string type for attribute name of class ExtensionSchema.
+          typedef string ExtensionSchemaName;
+
+          // An extension schema is a namespace for the keys used in the extended data of an
+          // entity.
+          // Annex A standardizes a first set of extension schemas.
+          struct ExtensionSchema
+          {
+            // Name of the schema.
+            ExtensionSchemaName name;
+          };
+
+          // A Period is the meantime between two times; it is specified as a couple of
+          // DateTime.
+          struct Period
+          {
+            DateTime endTime;
+            DateTime startTime;
+          };
+
+        };
+      };
+    };
+  };
+};
+#endif

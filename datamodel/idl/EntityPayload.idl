@@ -1,0 +1,873 @@
+// copyright 2017, 2018 BAE Systems, Thales Group, Object Management Group Inc
+// copyright 2022, 2023 BAE Systems, Real-Time Innovations, SimVentions, Object Management Group Inc
+
+#ifndef ORGOMGTEXDATAPAYLOADENTITYPAYLOADDEFVAR
+#define ORGOMGTEXDATAPAYLOADENTITYPAYLOADDEFVAR
+#include "CategorizationData.idl"
+#include "Util.idl"
+
+module org
+{
+
+  module omg
+  {
+
+    module tex
+    {
+
+      module DataPayload
+      {
+
+        // EntityPayload is the package of the classes needed to define the data exchanged
+        // with a TACSIT system for entities.
+        module EntityPayload
+        {
+
+          // Coordinates in a Cartesian reference frame as described by a coordinate
+          // specification object (from [OARIS]).
+          struct CartesianPosition
+          {
+            // X position of the point.
+            // The Distance unit is set by the Group.
+            org::omg::tex::DataPayload::Util::Distance x;
+            // Y position of the point.
+            // The Distance unit is set by the Group.
+            org::omg::tex::DataPayload::Util::Distance y;
+            // Altitude of the point.
+            // The Distance unit is set by the Group.
+            org::omg::tex::DataPayload::Util::Distance z;
+          };
+
+          // The Meta Data of an Entity.
+          struct EntityMetaData
+          {
+            // The publisher of the entity.
+            String publisher;
+            // An external identifier for the entity. This identifier is not bound to be unique
+            // among entities.
+            String identifier;
+            // Type of security Policy (e.g.: NATO).
+            String securityPolicy;
+            // Security classification in the preceding policy (e.g. UNCLASSIFED, NATO COSMIC
+            // SECRET).
+            String securityClassification;
+            // Description of the security classification (e.g. "Releasable for Internet
+            // transmission").
+            String securityCategory;
+          };
+
+          // Enumeration of specialisations options for union class EntityPayload.
+#ifdef DDS_XTYPES
+          @appendable
+#endif
+          enum EntityPayloadKind
+          {
+            // AggregateEntity option for EntityPayload
+            AGGREGATE_ENTITY_KIND,
+            // CompositeEntity option for EntityPayload
+            COMPOSITE_ENTITY_KIND,
+            // ShapedEntity option for EntityPayload
+            SHAPED_ENTITY_KIND
+          };
+
+          // This class allows for extended data for an entity. An extended data is defined by
+          // a schema/key/value triple, the schema being a group of keys (sort of namespace). 
+          // Extended Data are typically used to holds business-specific data that may be
+          // drawn/written around a symbol. 
+          // Annex A standardizes a first set of extended data keys.
+          struct ExtendedData
+          {
+            // Key of the extended data to be taken in the schema.
+            String key;
+            // Value matching the key.
+            String value;
+            org::omg::tex::DataPayload::Util::ExtensionSchema schema;
+          };
+
+          // Triangular representation of a full covariance matrix (which is by definition
+          // symmetric).
+          struct FullCovarianceMatrix
+          {
+            // The variance of the x coordinate value
+            org::omg::tex::DataPayload::Util::Variance xxVariance;
+            // The covariance of the x coordinate with the y coordinate.
+            org::omg::tex::DataPayload::Util::Variance xyVariance;
+            // The covariance of the x coordinate with the z coordinate.
+            org::omg::tex::DataPayload::Util::Variance xzVariance;
+            // The covariance of the x coordinate with the x velocity coordinate.
+            org::omg::tex::DataPayload::Util::Variance xvxVariance;
+            // The covariance of the x coordinate with the y velocity coordinate.
+            org::omg::tex::DataPayload::Util::Variance xvyVariance;
+            // The covariance of the x coordinate with the z velocity coordinate.
+            org::omg::tex::DataPayload::Util::Variance xvzVariance;
+            // The variance of the y coordinate value
+            org::omg::tex::DataPayload::Util::Variance yyVariance;
+            // The covariance of the y coordinate with the z coordinate.
+            org::omg::tex::DataPayload::Util::Variance yzVariance;
+            // The covariance of the y coordinate with the x velocity coordinate.
+            org::omg::tex::DataPayload::Util::Variance yvxVariance;
+            // The covariance of the y coordinate with the y velocity coordinate.
+            org::omg::tex::DataPayload::Util::Variance yvyVariance;
+            // The covariance of the y coordinate with the z velocity coordinate.
+            org::omg::tex::DataPayload::Util::Variance yvzVariance;
+            // The variance of the z coordinate value
+            org::omg::tex::DataPayload::Util::Variance zzVariance;
+            // The covariance of the z coordinate with the x velocity coordinate.
+            org::omg::tex::DataPayload::Util::Variance zvxVariance;
+            // The covariance of the z coordinate with the y velocity coordinate.
+            org::omg::tex::DataPayload::Util::Variance zvyVariance;
+            // The covariance of the z coordinate with the z velocity coordinate.
+            org::omg::tex::DataPayload::Util::Variance zvzVariance;
+            // The variance of the x component of velocity
+            org::omg::tex::DataPayload::Util::Variance vxvxVariance;
+            // The covariance of the x velocity coordinate with the y velocity coordinate.
+            org::omg::tex::DataPayload::Util::Variance vxvyVariance;
+            // The covariance of the x velocity coordinate with the z velocity coordinate.
+            org::omg::tex::DataPayload::Util::Variance vxvzVariance;
+            // The variance of the y component of velocity
+            org::omg::tex::DataPayload::Util::Variance vyvyVariance;
+            // The covariance of the y velocity coordinate with the z velocity coordinate.
+            org::omg::tex::DataPayload::Util::Variance vyvzVariance;
+            // The variance of the z component of velocity
+            org::omg::tex::DataPayload::Util::Variance vzvzVariance;
+          };
+
+          // Coordinates in a Geodetic reference frame as described by a coordinate
+          // specification object (from [OARIS]).
+          // The datum (WGS84...) is set by the group.
+          struct GeodeticPosition
+          {
+            // Latitude of the point.
+            // The Angle unit as well as the projection are set by the Group.
+            org::omg::tex::DataPayload::Util::Angle latitude;
+            // Longitude of the point.
+            // The Angle unit as well as the projection are set by the Group.
+            org::omg::tex::DataPayload::Util::Angle longitude;
+            // Altitude of the point.
+            // The Distance unit as well as the projection are set by the Group.
+            org::omg::tex::DataPayload::Util::Distance altitude;
+          };
+
+          // Coordinates in a polar reference frame as a described by a coordinate
+          // specification object (from [OARIS]).
+          struct PolarPosition
+          {
+            // Azimuth of the point.
+            // The Angle unit is set by the Group.
+            org::omg::tex::DataPayload::Util::Angle azimuth;
+            // Elevation of the point.
+            // The Angle unit is set by the Group.
+            org::omg::tex::DataPayload::Util::Angle elevation;
+            // Distance of the point from the center.
+            // The Distance unit as well as the projection are set by the Group.
+            org::omg::tex::DataPayload::Util::Distance range;
+          };
+
+          // Enumeration of specialisations options for union class PositionCoordinate.
+#ifdef DDS_XTYPES
+          @appendable
+#endif
+          enum PositionCoordinateKind
+          {
+            // CartesianPosition option for PositionCoordinate
+            CARTESIAN_POSITION_KIND,
+            // GeodeticPosition option for PositionCoordinate
+            GEODETIC_POSITION_KIND,
+            // PolarPosition option for PositionCoordinate
+            POLAR_POSITION_KIND
+          };
+
+          // Enumeration of specialisations options for union class ShapedEntity.
+#ifdef DDS_XTYPES
+          @appendable
+#endif
+          enum ShapedEntityKind
+          {
+            // AmbiguousBearings option for ShapedEntity
+            AMBIGUOUS_BEARINGS_KIND,
+            // Annulus option for ShapedEntity
+            ANNULUS_KIND,
+            // Arc option for ShapedEntity
+            ARC_KIND,
+            // Arcband option for ShapedEntity
+            ARCBAND_KIND,
+            // Arrow option for ShapedEntity
+            ARROW_KIND,
+            // Bearing option for ShapedEntity
+            BEARING_KIND,
+            // Circle option for ShapedEntity
+            CIRCLE_KIND,
+            // Corridor option for ShapedEntity
+            CORRIDOR_KIND,
+            // Ellipse option for ShapedEntity
+            ELLIPSE_KIND,
+            // FreeShapedEntity option for ShapedEntity
+            FREE_SHAPED_ENTITY_KIND,
+            // Multipoint option for ShapedEntity
+            MULTIPOINT_KIND,
+            // Orbit option for ShapedEntity
+            ORBIT_KIND,
+            // Point option for ShapedEntity
+            POINT_KIND,
+            // Polygon option for ShapedEntity
+            POLYGON_KIND,
+            // Polyline option for ShapedEntity
+            POLYLINE_KIND,
+            // Rectangle option for ShapedEntity
+            RECTANGLE_KIND,
+            // StickyNote option for ShapedEntity
+            STICKY_NOTE_KIND,
+            // Text option for ShapedEntity
+            TEXT_KIND
+          };
+
+          // An EntityRef is a reference to an EntityPayload. Its actual representation
+          // depends upon the PSM used.
+          typedef org::omg::tex::DataPayload::Util::URI EntityRef;
+
+          // Interpolation of the line positions between two points is performed using one of
+          // the following methodologies:
+          // - Rhumb Line – constant heading;
+          // - Great Circle – shortest path;
+          // - ScreenProjection - Screen.
+          enum InterpolationMethodology
+          {
+            // Interpolation along a straight line on a Mercator projection chart.
+            RhumbLine,
+            // Interpolation along the surface of the sphere.
+            GreatCircle,
+            // Interpolation along a straight line on the screen.
+            ScreenProjection
+          };
+
+          // Enumeration of the lifecycle status for an EntityPayload.
+          enum ReportType
+          {
+            // State that the EntityPayload has been created.
+            NEW,
+            // State that the EntityPayload has been modified.
+            UPDATE,
+            // State that the EntityPayload has been lost.
+            LOST,
+            // State that the EntityPayload has been resumed (after lost).
+            RESUMED,
+            // State that an EntityPayload has been dropped from the system.
+            DROPPED
+          };
+
+          // A sequence type, to represent multiple values.
+          typedef sequence<org::omg::tex::DataPayload::Util::URI> AggregateEntityGroupedEntities_id;
+
+          // An entity representing a loose grouping of other groups. Recursion is allowed,
+          // but is an error to include an entity into the group which that entity, itself,
+          // defines.
+          struct AggregateEntity
+          {
+            // The entites that are members of the aggregate entity
+            AggregateEntityGroupedEntities_id groupedEntities_id;
+          };
+
+#ifndef DDS_XTYPES
+          // a simple union type, to represent an optional value
+          union ShapedEntityClimbAngle switch (boolean)
+          {
+            // the value when present
+            case TRUE : org::omg::tex::DataPayload::Util::Angle value;
+          };
+
+#endif
+#ifndef DDS_XTYPES
+          // a simple union type, to represent an optional value
+          union ShapedEntityDirectionOfMovement switch (boolean)
+          {
+            // the value when present
+            case TRUE : org::omg::tex::DataPayload::Util::Angle value;
+          };
+
+#endif
+#ifndef DDS_XTYPES
+          // a simple union type, to represent an optional value
+          union ShapedEntitySpeed switch (boolean)
+          {
+            // the value when present
+            case TRUE : org::omg::tex::DataPayload::Util::Speed value;
+          };
+
+#endif
+#ifndef DDS_XTYPES
+          // a simple union type, to represent an optional value
+          union ShapedEntityCategorizationIn3D switch (boolean)
+          {
+            // the value when present
+            case TRUE : org::omg::tex::DataPayload::CategorizationData::CategorizationIn3D value;
+          };
+
+#endif
+          // A string type
+          // Typdef for bounded string type for attribute svgDefinition of class FreeShapedEntity.
+          typedef string FreeShapedEntitySvgDefinition;
+
+          // A string type
+          // Typdef for bounded string type for attribute text of class StickyNote.
+          typedef string StickyNoteText;
+
+          // A string type
+          // Typdef for bounded string type for attribute font of class StickyNote.
+          typedef string StickyNoteFont;
+
+          // A string type
+          // Typdef for bounded string type for attribute textColor of class StickyNote.
+          typedef string StickyNoteTextColor;
+
+          // A string type
+          // Typdef for bounded string type for attribute backgroundColor of class StickyNote.
+          typedef string StickyNoteBackgroundColor;
+
+          // A string type
+          // Typdef for bounded string type for attribute borderStyle of class StickyNote.
+          typedef string StickyNoteBorderStyle;
+
+#ifndef DDS_XTYPES
+          // a simple union type, to represent an optional value
+          union EntityPayloadMetaData switch (boolean)
+          {
+            // the value when present
+            case TRUE : EntityMetaData value;
+          };
+
+#endif
+          // A sequence type, to represent multiple values.
+          typedef sequence<ExtendedData> ShapedEntityExtendedData;
+
+#ifndef DDS_XTYPES
+          // a simple union type, to represent an optional value
+          union PointCovariance switch (boolean)
+          {
+            // the value when present
+            case TRUE : FullCovarianceMatrix value;
+          };
+
+#endif
+#ifndef DDS_XTYPES
+          // a simple union type, to represent an optional value
+          union EntityPayloadReportType switch (boolean)
+          {
+            // the value when present
+            case TRUE : ReportType value;
+          };
+
+#endif
+#ifndef DDS_XTYPES
+          // a simple union type, to represent an optional value
+          union ShapedEntityLegType switch (boolean)
+          {
+            // the value when present
+            case TRUE : InterpolationMethodology value;
+          };
+
+#endif
+          // Union of the specialisations for class PositionCoordinate.
+          // A georeferenced point.
+          // The type of coordinate (WGS84/Cartesian/Polar), the type of orientation as well
+          // as the type of origin are set by the group.
+#ifdef DDS_XTYPES
+          @appendable
+#endif
+          union PositionCoordinate switch (PositionCoordinateKind)
+          {
+            // CartesianPosition option for PositionCoordinate
+            case CARTESIAN_POSITION_KIND : CartesianPosition cartesianPosition;
+            // GeodeticPosition option for PositionCoordinate
+            case GEODETIC_POSITION_KIND : GeodeticPosition geodeticPosition;
+            // PolarPosition option for PositionCoordinate
+            case POLAR_POSITION_KIND : PolarPosition polarPosition;
+          };
+
+          // An entity represented as an area between two concentric circles and two radials
+          // of those circles. The annulus is defined by the two radii of the circles.
+          struct Annulus
+          {
+            // The radius of the smaller circle. This number should be positive
+            // The Distance unit is set by the Group.
+            org::omg::tex::DataPayload::Util::Distance minRadius;
+            // The radius of the larger circle. This number should be positive
+            // The Distance unit is set by the Group.
+            org::omg::tex::DataPayload::Util::Distance maxRadius;
+            PositionCoordinate center;
+          };
+
+          // An entity represented as a segment of the outline of an ellipse. It is defined by
+          // the ellipse it is part of and the start and end angle of the arc on that ellipse.
+          // The arc is defined in a clockwise direction from the startangle to the endangle.
+          struct Arc
+          {
+            // The North-South (before rotation) semi-axis of the ellipse. This number should be
+            // positive. The Distance unit is set by the Group.
+            org::omg::tex::DataPayload::Util::Distance NSSemiAxis;
+            // The East-West (before rotation) semi-axis of the ellipse. This number should be
+            // positive. The Distance unit is set by the Group.
+            org::omg::tex::DataPayload::Util::Distance EWSemiAxis;
+            // The start angle of the arc along an ellipse prior to rotation.
+            // The unit is set by the group.
+            org::omg::tex::DataPayload::Util::Angle startAngle;
+            // The end angle of the arc along an ellipse prior to rotation.
+            // The unit is set by the group.
+            org::omg::tex::DataPayload::Util::Angle endAngle;
+            // Rotation in the counter-clockwise direction.
+            // The unit is set by the group.
+            org::omg::tex::DataPayload::Util::Angle rotation;
+            PositionCoordinate center;
+          };
+
+          // An entity represented as an area between two concentric circles and two radials
+          // of those circles. The arcband is defined by the two radii of the circles and the
+          // two angles of the radials moving from startangle to endangle in a clockwise
+          // direction.
+          struct Arcband
+          {
+            // The radius of the smaller circle. This number should be positive
+            // The Distance unit is set by the Group.
+            org::omg::tex::DataPayload::Util::Distance minRadius;
+            // The radius of the smaller circle. This number should be positive
+            // The Distance unit is set by the Group.
+            org::omg::tex::DataPayload::Util::Distance maxRadius;
+            // The start angle of the arc along an ellipse prior to rotation.
+            // The unit is set by the group.
+            org::omg::tex::DataPayload::Util::Angle startAngle;
+            // The end angle of the arc along an ellipse prior to rotation.
+            // The unit is set by the group.
+            org::omg::tex::DataPayload::Util::Angle endAngle;
+            PositionCoordinate center;
+          };
+
+          // An entity represented as a circle.
+          struct Circle
+          {
+            // Radius of the center of the circle.
+            // The Distance unit is set by the Group.
+            org::omg::tex::DataPayload::Util::Distance radius;
+            PositionCoordinate center;
+          };
+
+          // An entity represented as an ellipse.
+          struct Ellipse
+          {
+            // The North-South (before rotation) semi-axis of the ellipse. This number should be
+            // positive. The Distance unit is set by the Group.
+            org::omg::tex::DataPayload::Util::Distance NSSemiAxis;
+            // The East-West (before rotation) semi-axis of the ellipse. This number should be
+            // positive. The Distance unit is set by the Group.
+            org::omg::tex::DataPayload::Util::Distance EWSemiAxis;
+            // Rotation in the counter-clockwise direction.
+            // The unit is set by the group.
+            org::omg::tex::DataPayload::Util::Angle rotation;
+            PositionCoordinate center;
+          };
+
+          // An entity represented as a rectangle.
+          struct Rectangle
+          {
+            // The dimension from center point to edge (half distance) of the rectangle along
+            // its North-South length. This number should be positive.
+            // The Distance unit is set by the Group.
+            org::omg::tex::DataPayload::Util::Distance NSHalfDistance;
+            // The dimension from center point to edge (half distance) of the rectangle along
+            // its East-West length. This number should be positive.
+            // The Distance unit is set by the Group.
+            org::omg::tex::DataPayload::Util::Distance EWHalfDistance;
+            // Rotation in the counter-clockwise direction.
+            // The unit is set by the group.
+            org::omg::tex::DataPayload::Util::Angle rotation;
+            PositionCoordinate center;
+          };
+
+          // An entity represented as a text.
+          // The 'point' attribute gives the left-lower starting position for left-to-right
+          // top-to-bottom languages, the right-lower starting position for right-to-left
+          // top-to-bottom languages, the left-upper starting position for top-to-bottom
+          // left-to-right languages and the right-upper starting position for top-to-bottom
+          // right-to-left languages.
+          // This attribute is implementation dependent for the other languages.
+          struct Text
+          {
+            // The text to be displayed.
+            String content;
+            // Rotation in the counter-clockwise direction.
+            // The unit is set by the group.
+            org::omg::tex::DataPayload::Util::Angle rotation;
+            PositionCoordinate point;
+          };
+
+          // Struct of base attributes defined for class EntityPayload.
+          struct EntityPayloadBase
+          {
+            // A Uniform Resource Identifier (URI) that uniquely identifies the object.
+#ifdef DDS_XTYPES
+            @key org::omg::tex::DataPayload::Util::URI id;
+#else
+            org::omg::tex::DataPayload::Util::URI id;
+#endif
+            // Short description.
+            String label;
+            // Additional human-readable text.
+            String info;
+            // A URL to human readable content providing more information about the object.
+            org::omg::tex::DataPayload::Util::URL href;
+            // A show/hide period.
+            org::omg::tex::DataPayload::Util::Period timeSpan;
+            // The date of validity of the information held by the entity.
+            org::omg::tex::DataPayload::Util::DateTime timeStamp;
+#ifdef DDS_XTYPES
+            @optional EntityMetaData metaData;
+#else
+            EntityPayloadMetaData metaData;
+#endif
+            // Lifecycle status of the EntityPayload.
+            // Default is UPDATE.
+#ifdef DDS_XTYPES
+            @optional ReportType reportType;
+#else
+            EntityPayloadReportType reportType;
+#endif
+          };
+
+#ifndef DDS_XTYPES
+          // a simple union type, to represent an optional value
+          union AmbiguousBearingsOrigin switch (boolean)
+          {
+            // the value when present
+            case TRUE : PositionCoordinate value;
+          };
+
+#endif
+          // A sequence type, to represent multiple values.
+          typedef sequence<PositionCoordinate> ArrowPoints;
+
+#ifndef DDS_XTYPES
+          // a simple union type, to represent an optional value
+          union BearingOrigin switch (boolean)
+          {
+            // the value when present
+            case TRUE : PositionCoordinate value;
+          };
+
+#endif
+          // A sequence type, to represent multiple values.
+          typedef sequence<PositionCoordinate> CorridorPoints;
+
+#ifndef DDS_XTYPES
+          // a simple union type, to represent an optional value
+          union FreeShapedEntityOrigin switch (boolean)
+          {
+            // the value when present
+            case TRUE : PositionCoordinate value;
+          };
+
+#endif
+          // A sequence type, to represent multiple values.
+          typedef sequence<PositionCoordinate> MultipointPoints;
+
+          // An entity that is know to exist somewhere along a line of one of two angles of
+          // azimuth from an origin (typically the location of a passive towed array sonar),
+          // but there is no information regarding its range (distance from the origin). On a
+          // TACSIT each ambiguous bearing should be represented as a line from the origin to
+          // the edge of the display.
+          // .
+          struct AmbiguousBearings
+          {
+            // one of the ambiguous angles of azimuth
+            org::omg::tex::DataPayload::Util::Angle bearingA;
+            // the other ambiguous angle of azimuth
+            org::omg::tex::DataPayload::Util::Angle bearingB;
+#ifdef DDS_XTYPES
+            @optional PositionCoordinate origin;
+#else
+            AmbiguousBearingsOrigin origin;
+#endif
+          };
+
+          // A sequence type, to represent multiple values.
+          typedef sequence<PositionCoordinate> PolygonPoints;
+
+          // A sequence type, to represent multiple values.
+          typedef sequence<PositionCoordinate> PolylinePoints;
+
+          // An entity represented as an arrow defined by an ordered set of points and a body
+          // width. The arrowhead is at the last point.
+          struct Arrow
+          {
+            // Width of the arrow body. Width must be greater than zero.
+            // The Distance unit is set by the Group.
+            org::omg::tex::DataPayload::Util::Distance width;
+            ArrowPoints points;
+          };
+
+          // An entity that is know to exist somewhere along a line of azimuth from an origin
+          // (typically the location of a passive sensor), but there is no information
+          // regarding its range (distance from the origin). On a TACSIT a bearing should be
+          // represented as a line from the origin to the edge of the display.
+          struct Bearing
+          {
+            // The angle of azimuth for the bearing
+            org::omg::tex::DataPayload::Util::Angle azimuth;
+#ifdef DDS_XTYPES
+            @optional PositionCoordinate origin;
+#else
+            BearingOrigin origin;
+#endif
+          };
+
+          // An entity represented as a corridor.
+          struct Corridor
+          {
+            // Width of the Corridor. Width must be greater than zero.
+            // The Distance unit is set by the Group.
+            org::omg::tex::DataPayload::Util::Distance width;
+            CorridorPoints points;
+          };
+
+          // A multipoint is a list of points without the semantics of a polyline (each point
+          // must be linked with a line) or a polygon (each point must be linked with a line
+          // and the figure is closed). The semantics is given by the associated
+          // CategorizationData. As examples, 2525 and APP6 series make a clear difference
+          // between multipoint and line.
+          // The rotation says that once the figure is drawn according to the
+          // CategorizationData, it must be rotated.
+          struct Multipoint
+          {
+            // Rotation in the counter-clockwise direction.
+            // The unit is set by the group.
+            org::omg::tex::DataPayload::Util::Angle rotation;
+            MultipointPoints points;
+          };
+
+          // An entity represented as a polygon.
+          struct Polygon
+          {
+            PolygonPoints points;
+          };
+
+          // An entity represented as a polyline.
+          struct Polyline
+          {
+            PolylinePoints points;
+          };
+
+          // An entity represented as a point.
+          struct Point
+          {
+            PositionCoordinate center;
+#ifdef DDS_XTYPES
+            @optional FullCovarianceMatrix covariance;
+#else
+            PointCovariance covariance;
+#endif
+          };
+
+          // An entity represented in a client specific format through the SVG (Scalable
+          // Vector Graphics) standard.
+          // It has an optional origin. If it contains an origin then the SVG coordinates are
+          // interpreted as Cartesian relative to that origin. If there is no origin then the
+          // coordinates are interpreted with respect to a related entity (from an Entity
+          // Relation) as Cartesian. If there is no related entity then the coordinates are
+          // interpreted as absolute latitudes (y) and longitudes (x).
+          // This class supports the display of geometry for entities for which the TACSIT has
+          // no pre-defined symbology standard.
+          struct FreeShapedEntity
+          {
+            // An SVG xml file defining the appearance of the free shaped entity.
+            FreeShapedEntitySvgDefinition svgDefinition;
+#ifdef DDS_XTYPES
+            @optional PositionCoordinate origin;
+#else
+            FreeShapedEntityOrigin origin;
+#endif
+          };
+
+          // An entity represented as an orbit path.
+          // The intended result the shape formed by linking together two half circles with
+          // two lines (a.k.a. an athletics track by the sportsmen among us). The first circle
+          // is centered on point one and the second circle is centered on point two. Both of
+          // them has the same radius given by the width attribute.
+          struct Orbit
+          {
+            // Width of the orbit. Width must be greater than zero.
+            // The Distance unit is set by the Group.
+            org::omg::tex::DataPayload::Util::Distance width;
+            PositionCoordinate pointOne;
+            PositionCoordinate pointTwo;
+          };
+
+          // Struct of base attributes defined for class ShapedEntity.
+          struct ShapedEntityBase
+          {
+            // Direction of the movement wrt altitude, if any.
+            // The unit is set by the group.
+#ifdef DDS_XTYPES
+            @optional org::omg::tex::DataPayload::Util::Angle climbAngle;
+#else
+            ShapedEntityClimbAngle climbAngle;
+#endif
+            // Direction of the movement, if any.
+            // The unit is set by the group.
+#ifdef DDS_XTYPES
+            @optional org::omg::tex::DataPayload::Util::Angle directionOfMovement;
+#else
+            ShapedEntityDirectionOfMovement directionOfMovement;
+#endif
+            // Whether the shape is defined relative to the heading (direction of movement) of
+            // the entity
+            boolean isHeadingRelative;
+            // Speed of movement.
+            // The unit is set by the group.
+#ifdef DDS_XTYPES
+            @optional org::omg::tex::DataPayload::Util::Speed speed;
+#else
+            ShapedEntitySpeed speed;
+#endif
+            // Data needed to draw the symbol of the entity.
+            org::omg::tex::DataPayload::CategorizationData::CategorizationData categorization;
+            // Extensible data.
+            ShapedEntityExtendedData extendedData;
+            // Data needed to draw the symbol of the entity in 3D.
+#ifdef DDS_XTYPES
+            @optional org::omg::tex::DataPayload::CategorizationData::CategorizationIn3D CategorizationIn3D;
+#else
+            ShapedEntityCategorizationIn3D CategorizationIn3D;
+#endif
+            // Interpolation method for the shape.
+#ifdef DDS_XTYPES
+            @optional InterpolationMethodology legType;
+#else
+            ShapedEntityLegType legType;
+#endif
+          };
+
+          // A note with a handle.
+          // Also know as a Post-It note ("Post-It" is a registered 3M trademark).
+          struct StickyNote
+          {
+            // Text of the note
+            StickyNoteText text;
+            // Font family (aka typeface) used to write the text within the note.
+            StickyNoteFont font;
+            // Color of the text in the note.
+            // The way this color is mapped to RGB or other values is implementation dependent.
+            StickyNoteTextColor textColor;
+            // Color of the note itself.
+            // The way this color is mapped to RGB or other values is implementation dependent.
+            StickyNoteBackgroundColor backgroundColor;
+            // Style of the border of the note.
+            // The way this style is mapped is implementation dependent.
+            StickyNoteBorderStyle borderStyle;
+            // Horizontal gap between the center of the text block and the end of the handle. In
+            // pixels.
+            short offsetX;
+            // Vertical gap between the center of the text block and the end of the handle. In
+            // pixels.
+            short offsetY;
+            PositionCoordinate point;
+          };
+
+          // Union of the variant attributes for the specialisations for class ShapedEntity.
+          // The base for most items.
+#ifdef DDS_XTYPES
+          @appendable
+#endif
+          union ShapedEntityVariants switch (ShapedEntityKind)
+          {
+            // AmbiguousBearings option for ShapedEntity
+            case AMBIGUOUS_BEARINGS_KIND : AmbiguousBearings ambiguousBearings;
+            // Annulus option for ShapedEntity
+            case ANNULUS_KIND : Annulus annulus;
+            // Arc option for ShapedEntity
+            case ARC_KIND : Arc arc;
+            // Arcband option for ShapedEntity
+            case ARCBAND_KIND : Arcband arcband;
+            // Arrow option for ShapedEntity
+            case ARROW_KIND : Arrow arrow;
+            // Bearing option for ShapedEntity
+            case BEARING_KIND : Bearing bearing;
+            // Circle option for ShapedEntity
+            case CIRCLE_KIND : Circle circle;
+            // Corridor option for ShapedEntity
+            case CORRIDOR_KIND : Corridor corridor;
+            // Ellipse option for ShapedEntity
+            case ELLIPSE_KIND : Ellipse ellipse;
+            // FreeShapedEntity option for ShapedEntity
+            case FREE_SHAPED_ENTITY_KIND : FreeShapedEntity freeShapedEntity;
+            // Multipoint option for ShapedEntity
+            case MULTIPOINT_KIND : Multipoint multipoint;
+            // Orbit option for ShapedEntity
+            case ORBIT_KIND : Orbit orbit;
+            // Point option for ShapedEntity
+            case POINT_KIND : Point point;
+            // Polygon option for ShapedEntity
+            case POLYGON_KIND : Polygon polygon;
+            // Polyline option for ShapedEntity
+            case POLYLINE_KIND : Polyline polyline;
+            // Rectangle option for ShapedEntity
+            case RECTANGLE_KIND : Rectangle rectangle;
+            // StickyNote option for ShapedEntity
+            case STICKY_NOTE_KIND : StickyNote stickyNote;
+            // Text option for ShapedEntity
+            case TEXT_KIND : Text text;
+          };
+
+          struct ShapedEntity
+          {
+            // base option for ShapedEntity
+            ShapedEntityBase shapedEntityBase;
+            // variant options for ShapedEntity
+            ShapedEntityVariants shapedEntityVariants;
+          };
+
+          // A sequence type, to represent multiple values.
+          typedef sequence<ShapedEntity> CompositeEntityComposedEntities;
+
+          // Content unbreakable composition made of basic shapes (no recursion).
+          struct CompositeEntity
+          {
+            // entities in the composition
+            CompositeEntityComposedEntities composedEntities;
+          };
+
+          // Union of the variant attributes for the specialisations for class EntityPayload.
+          // The definition of an entity as it appears in the exchanges with TACSIT.
+          // The 'reportType' attributes gives the lifecycle status of this payload showing
+          // that it is a creation, a modification and so forth.
+          // Note: the 'id' attribute is used by the TACSIT system to identify the
+          // EntityPayload while the 'identifier' attribute of the EntityMetatData is used by
+          // the system which requested the creation of this EntityPayload to identify it
+          // internally. 'identifier' is so a way to let this using system to find back its
+          // data when getting back an entity from TACSIT.
+#ifdef DDS_XTYPES
+          @appendable
+#endif
+          union EntityPayloadVariants switch (EntityPayloadKind)
+          {
+            // AggregateEntity option for EntityPayload
+            case AGGREGATE_ENTITY_KIND : AggregateEntity aggregateEntity;
+            // CompositeEntity option for EntityPayload
+            case COMPOSITE_ENTITY_KIND : CompositeEntity compositeEntity;
+            // ShapedEntity option for EntityPayload
+            case SHAPED_ENTITY_KIND : ShapedEntity shapedEntity;
+          };
+
+          struct EntityPayload
+          {
+            // base option for EntityPayload
+            EntityPayloadBase entityPayloadBase;
+            // variant options for EntityPayload
+            EntityPayloadVariants entityPayloadVariants;
+          };
+#ifndef DDS_XTYPES
+#pragma keylist EntityPayload entityPayloadBase.id
+#endif
+
+        };
+      };
+    };
+  };
+};
+#endif
