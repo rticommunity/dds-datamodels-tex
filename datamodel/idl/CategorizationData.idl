@@ -17,96 +17,90 @@ module org
       module DataPayload
       {
 
-        // CategorizationData are data needed to draw an Entity depending on the chosen
-        // symbology: 2525, APP-6...
+        @doc("CategorizationData are data needed to draw an Entity depending on the chosen \
+            symbology: 2525, APP-6...")
         module CategorizationData
         {
 
-          // Enumeration of specialisations options for union class CategorizationData.
-#ifdef DDS_XTYPES
+          @doc("Enumeration of specialisations options for union class CategorizationData.")
           @appendable
-#endif
           enum CategorizationDataKind
           {
-            // ADSBCategorizationData option for CategorizationData
+            @doc("ADSBCategorizationData option for CategorizationData")
             ADSB_CATEGORIZATION_DATA_KIND,
-            // AISCategorizationData option for CategorizationData
+            @doc("AISCategorizationData option for CategorizationData")
             AIS_CATEGORIZATION_DATA_KIND,
-            // MilitaryCategorizationData option for CategorizationData
+            @doc("MilitaryCategorizationData option for CategorizationData")
             MILITARY_CATEGORIZATION_DATA_KIND
           };
 
-          // The data of an entity used for the 3D rendering of this entity.
+          @doc("The data of an entity used for the 3D rendering of this entity.")
           struct CategorizationIn3D
           {
-            // Line and point symbols can be extruded above the terrain for visual emphasis,
-            // forming what appear to be walls on the terrain surface. This attribute gives the
-            // height of the lower border of this "wall".
+            @doc("Line and point symbols can be extruded above the terrain for visual emphasis, \
+                forming what appear to be walls on the terrain surface. This attribute gives the \
+                height of the lower border of this \"wall\".")
             org::omg::tex::DataPayload::Util::Distance extrudeHeight;
           };
 
-          // Enumeration of specialisations options for union class MilitaryCategorizationData.
-#ifdef DDS_XTYPES
+          @doc("Enumeration of specialisations options for union class MilitaryCategorizationData.")
           @appendable
-#endif
           enum MilitaryCategorizationDataKind
           {
-            // APP6BCategorizationData option for MilitaryCategorizationData
+            @doc("APP6BCategorizationData option for MilitaryCategorizationData")
             APP6B_CATEGORIZATION_DATA_KIND,
-            // APP6CCategorizationData option for MilitaryCategorizationData
+            @doc("APP6CCategorizationData option for MilitaryCategorizationData")
             APP6C_CATEGORIZATION_DATA_KIND,
-            // STANAG2525CCategorizationData option for MilitaryCategorizationData
+            @doc("STANAG2525CCategorizationData option for MilitaryCategorizationData")
             STANAG2525C_CATEGORIZATION_DATA_KIND,
-            // STANAG2525DCategorizationData option for MilitaryCategorizationData
+            @doc("STANAG2525DCategorizationData option for MilitaryCategorizationData")
             STANAG2525D_CATEGORIZATION_DATA_KIND,
-            // STANAG5516CategorizationData option for MilitaryCategorizationData
+            @doc("STANAG5516CategorizationData option for MilitaryCategorizationData")
             STANAG5516_CATEGORIZATION_DATA_KIND
           };
 
-          // Enumeration of specialisations options for union class STANAG5516CategorizationData.
-#ifdef DDS_XTYPES
+          @doc("Enumeration of specialisations options for union class STANAG5516CategorizationData.")
           @appendable
-#endif
           enum STANAG5516CategorizationDataKind
           {
-            // STANAG5516SymbolCategorizationData option for STANAG5516CategorizationData
+            @doc("STANAG5516SymbolCategorizationData option for STANAG5516CategorizationData")
             STANAG5516_SYMBOL_CATEGORIZATION_DATA_KIND
           };
 
-          // The data needed to display symbol sets aimed at data models derived from STANAG
-          // 5516. This STANAG does not define symbology. The purpose of this class is to
-          // support custom symbology based on 5516 data model.
+          @doc("The data needed to display symbol sets aimed at data models derived from STANAG \
+            5516. This STANAG does not define symbology. The purpose of this class is to \
+            support custom symbology based on 5516 data model.")
           struct STANAG5516SymbolCategorizationData
           {
-            // The Special Processing indicator is set
+            @doc("The Special Processing indicator is set")
             char hasSpecialProcessing;
-            // The Emergency indicator is set
+            @doc("The Emergency indicator is set")
             boolean isAnEmergency;
-            // The Special Interest indicator is set
+            @doc("The Special Interest indicator is set")
             boolean isOfSpecialInterest;
-            // The code for the per environment defined platform identify for the Entity
-            // according to STANAG 5516. If no identity is defined then the code refers to a
-            // value in the reference point tables within STANAG 5516.
+            @doc("The code for the per environment defined platform identify for the Entity \
+                according to STANAG 5516. If no identity is defined then the code refers to a \
+                value in the reference point tables within STANAG 5516.")
             short platformIdentity;
           };
 
-          // Enumeration of the Cargo Categories defined by the IMO
+          @doc("Enumeration of the Cargo Categories defined by the IMO")
           enum AISCargoCategory
           {
-            // The ship's cargo has no specific IMO hazard or pollutant
-            //  category.
+            @doc("The ship\'s cargo has no specific IMO hazard or pollutant \
+                category.")
             GENERAL_CARGO,
-            // The ship is carrying cargo in IMO hazard or pollutant
-            //  category X.
+            @doc("The ship is carrying cargo in IMO hazard or pollutant \
+                category X.")
             CATEGORY_X,
-            // The ship is carrying cargo in IMO hazard or pollutant
-            //  category Y.
+            @doc("The ship is carrying cargo in IMO hazard or pollutant \
+                category Y.")
             CATEGORY_Y,
-            // The ship is carrying cargo in IMO hazard or pollutant
-            //  category Z.
+            @doc("The ship is carrying cargo in IMO hazard or pollutant \
+                category Z.")
             CATEGORY_Z,
-            // The ship is carrying cargo in IMO hazard or pollutant
-            //  category OS.
+            @doc("The ship is carrying cargo in IMO hazard or pollutant \
+                category OS.")
             CATEGORY_OS
           };
 
@@ -114,15 +108,15 @@ module org
 
           typedef sequence<char, 3> APP6BCategorizationDataFrameShape;
 
-          // The data needed for displaying the AIS symbol set.
+          @doc("The data needed for displaying the AIS symbol set.")
           struct AISCategorizationData
           {
-            // The IMO categorization of the cargo carried as identified on AIS
+            @doc("The IMO categorization of the cargo carried as identified on AIS")
             AISCargoCategory cargoCategory;
-            // The type of ship.
-            String shipCategory;
-            // Description of current navigational status and readiness
-            String navigationalStatus;
+            @doc("The type of ship.")
+            string shipCategory;
+            @doc("Description of current navigational status and readiness")
+            string navigationalStatus;
           };
 
           typedef sequence<char, 6> APP6BCategorizationDataFunctionID;
@@ -181,309 +175,277 @@ module org
 
           typedef sequence<char, 6> STANAG2525DCategorizationDataCond_specFromSymbolOrig;
 
-#ifndef DDS_XTYPES
-          // a simple union type, to represent an optional value
-          union STANAG5516CategorizationDataIdentity switch (boolean)
-          {
-            // the value when present
-            case TRUE : org::omg::tex::DataPayload::Util::Identity value;
-          };
-
-#endif
-#ifndef DDS_XTYPES
-          // a simple union type, to represent an optional value
-          union STANAG5516CategorizationDataTrackState switch (boolean)
-          {
-            // the value when present
-            case TRUE : org::omg::tex::DataPayload::Util::TrackPhase value;
-          };
-
-#endif
-          // Union of the variant attributes for the specialisations for class STANAG5516CategorizationData.
-          // This is a base class to support the display of entities based on the STANAG 5516
-          // data model. This class contains attributes that relate to display filtering for
-          // any entities that have no symbol
-          // Note that this STANAG does not define symbology. The purpose of this class is to
-          // support custom symbology based on 5516 data model.
-#ifdef DDS_XTYPES
+          @doc("Union of the variant attributes for the specialisations for class STANAG5516CategorizationData. \
+            This is a base class to support the display of entities based on the STANAG 5516 \
+            data model. This class contains attributes that relate to display filtering for \
+            any entities that have no symbol \
+            Note that this STANAG does not define symbology. The purpose of this class is to \
+            support custom symbology based on 5516 data model.")
           @appendable
-#endif
           union STANAG5516CategorizationDataVariants switch (STANAG5516CategorizationDataKind)
           {
-            // STANAG5516SymbolCategorizationData option for STANAG5516CategorizationData
+            @doc("STANAG5516SymbolCategorizationData option for STANAG5516CategorizationData")
             case STANAG5516_SYMBOL_CATEGORIZATION_DATA_KIND : STANAG5516SymbolCategorizationData stanag5516SymbolCategorizationData;
           };
 
-          // Struct of base attributes defined for class STANAG5516CategorizationData.
+          @doc("Struct of base attributes defined for class STANAG5516CategorizationData.")
           struct STANAG5516CategorizationDataBase
           {
-            // The environment that the Entity is in or to which it applies
+            @doc("The environment that the Entity is in or to which it applies")
             org::omg::tex::DataPayload::Util::Environment environment;
-            // The standard identity of the (track-like) entity
-#ifdef DDS_XTYPES
+            @doc("The standard identity of the (track-like) entity")
             @optional org::omg::tex::DataPayload::Util::Identity identity;
-#else
-            STANAG5516CategorizationDataIdentity identity;
-#endif
-            // The ForceTell indicator is set
+            @doc("The ForceTell indicator is set")
             boolean isForceTell;
-            // The Entity has an Exercise indicator and so is part of an exercise.
+            @doc("The Entity has an Exercise indicator and so is part of an exercise.")
             boolean isInExercise;
-            // The Simulation indicator is set - e.g. the entity is for operator training
-            // purposes.
+            @doc("The Simulation indicator is set - e.g. the entity is for operator training \
+                purposes.")
             boolean isSimulation;
-            // If a track-like entity the state or phase of its lifecycle. Indicates whether
-            // tracking is active
-#ifdef DDS_XTYPES
+            @doc("If a track-like entity the state or phase of its lifecycle. Indicates whether \
+                tracking is active")
             @optional org::omg::tex::DataPayload::Util::TrackPhase trackState;
-#else
-            STANAG5516CategorizationDataTrackState trackState;
-#endif
           };
 
-          // The data needed for displaying APP-6B symbol set (see [APP-6B]).
-          // The method to work out the symbol id is to concatenate the attributes codeScheme,
-          // frameShape, functionID, sizeAndMobility, countryCode, orderOfBattle.
+          @doc("The data needed for displaying APP-6B symbol set (see [APP-6B]). \
+            The method to work out the symbol id is to concatenate the attributes codeScheme, \
+            frameShape, functionID, sizeAndMobility, countryCode, orderOfBattle.")
           struct APP6BCategorizationData
           {
-            // Code scheme, position 1. This position indicates the overall symbology set to
-            // which a symbol belongs.
+            @doc("Code scheme, position 1. This position indicates the overall symbology set to \
+                which a symbol belongs.")
             char codeScheme;
-            // Country code, positions 13 and 14. These positions identify the country with
-            // which a symbol is associated. Country code identifiers are listed in Federal
-            // Information Processing Standard Pub 10 series (See [FIPS 10-4]).
+            @doc("Country code, positions 13 and 14. These positions identify the country with \
+                which a symbol is associated. Country code identifiers are listed in Federal \
+                Information Processing Standard Pub 10 series (See [FIPS 10-4]).")
             APP6BCategorizationDataCountryCode countryCode;
-            // Affiliation, battle dimension, and status, 2, 3, and 4. These positions determine
-            // the frame shape of a symbol and indicate its actual or planned location.
+            @doc("Affiliation, battle dimension, and status, 2, 3, and 4. These positions determine \
+                the frame shape of a symbol and indicate its actual or planned location.")
             APP6BCategorizationDataFrameShape frameShape;
-            // Function ID, positions 5 through 10. These positions identify a symbol’s
-            // function, with each position providing increasing levels of detail and
-            // specialization.
+            @doc("Function ID, positions 5 through 10. These positions identify a symbol's \
+                function, with each position providing increasing levels of detail and \
+                specialization.")
             APP6BCategorizationDataFunctionID functionID;
-            // The semicolon-separated list of Symbol Modifier Fields as defined is [APP6B]. 
-            // A Symbol Modifier Field is defined as a key-value pair delimited
-            // with the ':' character.
-            String modifiers;
-            // Order of battle, position 15. This position provides additional information about
-            // the role of a symbol in the battlespace. For example, a bomber that has nuclear
-            // weapons on board may be strategic force-related, or a tactical graphic may also
-            // perform the role of a control point.
+            @doc("The semicolon-separated list of Symbol Modifier Fields as defined is [APP6B]. \
+                A Symbol Modifier Field is defined as a key-value pair delimited \
+                with the ':' character.")
+            string modifiers;
+            @doc("Order of battle, position 15. This position provides additional information about \
+                the role of a symbol in the battlespace. For example, a bomber that has nuclear \
+                weapons on board may be strategic force-related, or a tactical graphic may also \
+                perform the role of a control point.")
             char orderOfBattle;
-            // Size/mobility indicator code, positions 11 and 12. These positions identify the
-            // size and mobility of a symbol.
+            @doc("Size/mobility indicator code, positions 11 and 12. These positions identify the \
+                size and mobility of a symbol.")
             APP6BCategorizationDataSizeAndMobility sizeAndMobility;
           };
 
-          // The data needed for displaying the 2525C symbol set.
-          // For a full definition of the specifications of using MILSTD-2525 Symbology refer
-          // to the published version from the US-DOD.
-          // Excerpt from Appendix A of the 2525C Symbology Standard:  
-          // A.5.1 Technical specifications. Composition, construction, display, and
-          // transmission of tactical symbols are explained in the detailed requirements
-          // section of the standard.
-          // A.5.2 Symbol identification coding scheme. A SIDC is a 15-character alphanumeric
-          // identifier that provides the information necessary to display or transmit a
-          // tactical symbol between MIL-STD-2525 compliant systems.
-          // Apendix A of 2525C Specification outlines the order of concatenation of attribute
-          // data.  Copied here for convenience
-          // Attribute - # of Chars
-          // Coding Scheme - 1 (S for Warfighting)
-          // Standard ID - 1
-          // Battle Dimension - 1
-          // Status/OPCON -1 
-          // Function ID  - 6
-          // Symbol Modifier - 2
-          // Country Code - 2
-          // Order of Battle - 1
+          @doc("The data needed for displaying the 2525C symbol set. \
+              For a full definition of the specifications of using MILSTD-2525 Symbology refer \
+              to the published version from the US-DOD. \
+              Excerpt from Appendix A of the 2525C Symbology Standard: \
+              A.5.1 Technical specifications. Composition, construction, display, and \
+              transmission of tactical symbols are explained in the detailed requirements \
+              section of the standard. \
+              A.5.2 Symbol identification coding scheme. A SIDC is a 15-character alphanumeric \
+              identifier that provides the information necessary to display or transmit a \
+              tactical symbol between MIL-STD-2525 compliant systems. \
+              Apendix A of 2525C Specification outlines the order of concatenation of attribute \
+              data.  Copied here for convenience \
+              Attribute - # of Chars \
+              Coding Scheme - 1 (S for Warfighting) \
+              Standard ID - 1 \
+              Battle Dimension - 1 \
+              Status/OPCON -1 \
+              Function ID  - 6 \
+              Symbol Modifier - 2 \
+              Country Code - 2 \
+              Order of Battle - 1")
           struct STANAG2525CCategorizationData
           {
-            // Version: See detailed specification of this field in the Specification
-            // (MIL-STD-2525D Appendix A.5).
+            @doc("Version: See detailed specification of this field in the Specification \
+                (MIL-STD-2525D Appendix A.5).")
             char codingScheme;
-            // Standard Identity: See detailed specification of this field in the Specification
-            // (MIL-STD-2525D Appendix A.5).
+            @doc("Standard Identity: See detailed specification of this field in the Specification \
+                (MIL-STD-2525D Appendix A.5).")
             char standardID_AmpDescriptor;
-            // Symbol Set: See detailed specification of this field in the Specification
-            // (MIL-STD-2525D Appendix A.5).
+            @doc("Symbol Set: See detailed specification of this field in the Specification \
+                (MIL-STD-2525D Appendix A.5).")
             char battleDimension;
-            // Status: See detailed specification of this field in the Specification
-            // (MIL-STD-2525D Appendix A.5).
+            @doc("Status: See detailed specification of this field in the Specification \
+                (MIL-STD-2525D Appendix A.5).")
             char status_OPCON;
-            // HQ/Task Force/Dummy: See detailed specification of this field in the
-            // Specification (MIL-STD-2525D Appendix A.5).
+            @doc("HQ/Task Force/Dummy: See detailed specification of this field in the \
+                Specification (MIL-STD-2525D Appendix A.5).")
             STANAG2525CCategorizationDataFunctionID functionID;
-            // Amplifier/Descriptor: See detailed specification of this field in the
-            // Specification (MIL-STD-2525D Appendix A.5).
+            @doc("Amplifier/Descriptor: See detailed specification of this field in the \
+                Specification (MIL-STD-2525D Appendix A.5).")
             STANAG2525CCategorizationDataSymbolModifier symbolModifier;
-            // Entity: See detailed specification of this field in the Specification
-            // (MIL-STD-2525D Appendix A.5).
+            @doc("Entity: See detailed specification of this field in the Specification \
+                (MIL-STD-2525D Appendix A.5).")
             STANAG2525CCategorizationDataCountryCode countryCode;
             char orderOfBattle;
           };
 
           struct STANAG5516CategorizationData
           {
-            // base option for STANAG5516CategorizationData
+            @doc("base option for STANAG5516CategorizationData")
             STANAG5516CategorizationDataBase stanag5516CategorizationDataBase;
-            // variant options for STANAG5516CategorizationData
+            @doc("variant options for STANAG5516CategorizationData")
             STANAG5516CategorizationDataVariants stanag5516CategorizationDataVariants;
           };
 
-          // The data needed for displaying APP-6C symbol set as described in [APP-6C].
-          // The method to work out the symbol id is to concatenate the attributes.
+          @doc("The data needed for displaying APP-6C symbol set as described in [APP-6C]. \
+            The method to work out the symbol id is to concatenate the attributes.")
           struct APP6CCategorizationData
           {
-            // The Unit Echelon/Equipment Mobility/Naval Towed Array Amplifier is comprised of
-            // two digits.
+            @doc("The Unit Echelon/Equipment Mobility/Naval Towed Array Amplifier is comprised of \
+                two digits.")
             APP6CCategorizationDataAmplifier amplifier;
             APP6CCategorizationDataEntity entity;
             APP6CCategorizationDataEntitySubType entitySubType;
             APP6CCategorizationDataEntityType entityType;
-            // The Headquarters/Task Force/Dummy is comprised of one digit.
+            @doc("The Headquarters/Task Force/Dummy is comprised of one digit.")
             char headQuarterTaskForceDummy;
-            // Specified by national or geopolitical symbol set.
-            // This is to accommodate national modifications/additions that are not included in
-            // APP-6C.
+            @doc("Specified by national or geopolitical symbol set. \
+                This is to accommodate national modifications/additions that are not included in \
+                APP-6C.")
             APP6CCategorizationDataNationalAddition nationalAddition;
-            // National or geopolitical identifier.
-            // This is to accommodate national modifications/additions that are not included in
-            // APP-6C.
+            @doc("National or geopolitical identifier. \
+                This is to accommodate national modifications/additions that are not included in \
+                APP-6C.")
             APP6CCategorizationDataNationalAdditionId nationalAdditionId;
-            // National or geopolitical symbol set version.
-            // This is to accommodate national modifications/additions that are not included in
-            // APP-6C.
+            @doc("National or geopolitical symbol set version. \
+                This is to accommodate national modifications/additions that are not included in \
+                APP-6C.")
             char nationalAdditionVersion;
             APP6CCategorizationDataSectorOneModifier sectorOneModifier;
             APP6CCategorizationDataSectorTwoModifier sectorTwoModifier;
-            // Standard identity is comprised of two digits. The first digit represents the
-            // context of the symbol and the second digit reflects the standard identities.
+            @doc("Standard identity is comprised of two digits. The first digit represents the \
+                context of the symbol and the second digit reflects the standard identities.")
             APP6CCategorizationDataStandardIdentity standardIdentity;
-            // The status is comprised of one digit.
+            @doc("The status is comprised of one digit.")
             char status;
-            // The symbol set is comprised of two digits.
+            @doc("The symbol set is comprised of two digits.")
             APP6CCategorizationDataSymbolSet symbolSet;
-            // This indicates whether the symbol identification code uses the national extension
-            // attributes from the third ten digit set of the Symbol Identification Code (SIDC).
-            // This controls the validity of attributes nationalAddition, nationalAdditionId and
-            // nationalAdditionVersion.
+            @doc("This indicates whether the symbol identification code uses the national extension \
+                attributes from the third ten digit set of the Symbol Identification Code (SIDC). \
+                This controls the validity of attributes nationalAddition, nationalAdditionId and \
+                nationalAdditionVersion.")
             boolean useNationalExtension;
-            // This field identifies a version change for the symbol identification code which
-            // occurs when there is a change in an established icon, modifier, or drawing rule
-            // for a control measure symbol. Subsequent changes will create further version
-            // changes for the symbol identification
-            // code. The basis for all symbol versions in all sets is APP-6(C).
+            @doc("This field identifies a version change for the symbol identification code which \
+                occurs when there is a change in an established icon, modifier, or drawing rule \
+                for a control measure symbol. Subsequent changes will create further version \
+                changes for the symbol identification \
+                code. The basis for all symbol versions in all sets is APP-6(C).")
             APP6CCategorizationDataVersion version;
           };
 
-          // The data needed for displaying the 2525D symbol set.
-          // For a full definition of the specifications of using MILSTD-2525 Symbology refer
-          // to the latest published version from the US-DOD.
-          // Excerpt from Appendix A of the 2525D Symbology Standard:  
-          // A.5.1 Symbol identification codes. A symbol identification code is a numeric code
-          // that uniquely identifies the elements needed to build a MIL–STD–2525D compliant
-          // symbol. The numeric codes provide the same type of descriptions used in message
-          // formats but further focus
-          // the data to a specific domain for ease in creating the symbols with less band
-          // width.
-          // A.5.2 Elements of the symbol identification codes. The symbol identification code
-          // is composed of eleven elements of information which are presented in two sets of
-          // ten digits. An additional set of ten digits composed of three elements must be
-          // used when a symbology
-          // originator version extension flag is used. This extension is conditional. 
-          // Apendix A of 2525D Specification outlines the order of concatenation of attribute
-          // data.  Copied here for convenience
-          // Attribute - # of Chars
-          // Set A:
-          // Version - 2
-          // Standard ID - 2
-          // Symbol Set - 2
-          // Status -1 
-          // HQ Task Force Dummy - 1
-          // Amp / Descr - 2
-          // ------------------
-          // Set B:
-          // Entity - 2
-          // Entity Type - 2
-          // Entity Subtype - 2
-          // Sector 1 Mod - 2
-          // Sector 2 Mod - 2
-          // ---------------------
-          // Conditional Set C
-          // Symbology Orig ID - 3
-          // Symbology Orig Symbol Set - 1
-          // Specified by Symbol Originator - 2,2,2
+          @doc("The data needed for displaying the 2525D symbol set. \
+              For a full definition of the specifications of using MILSTD-2525 Symbology refer \
+              to the latest published version from the US-DOD. \
+              Excerpt from Appendix A of the 2525D Symbology Standard: \
+              A.5.1 Symbol identification codes. A symbol identification code is a numeric code \
+              that uniquely identifies the elements needed to build a MIL-STD-2525D compliant \
+              symbol. The numeric codes provide the same type of descriptions used in message \
+              formats but further focus \
+              the data to a specific domain for ease in creating the symbols with less band \
+              width. \
+              A.5.2 Elements of the symbol identification codes. The symbol identification code \
+              is composed of eleven elements of information which are presented in two sets of \
+              ten digits. An additional set of ten digits composed of three elements must be \
+              used when a symbology \
+              originator version extension flag is used. This extension is conditional. \
+              Apendix A of 2525D Specification outlines the order of concatenation of attribute \
+              data.  Copied here for convenience \
+              Attribute - # of Chars \
+              Set A: \
+              Version - 2 \
+              Standard ID - 2 \
+              Symbol Set - 2 \
+              Status -1 \
+              HQ Task Force Dummy - 1 \
+              Amp / Descr - 2 \
+              ------------------ \
+              Set B: \
+              Entity - 2 \
+              Entity Type - 2 \
+              Entity Subtype - 2 \
+              Sector 1 Mod - 2 \
+              Sector 2 Mod - 2 \
+              --------------------- \
+              Conditional Set C \
+              Symbology Orig ID - 3 \
+              Symbology Orig Symbol Set - 1 \
+              Specified by Symbol Originator - 2,2,2")
           struct STANAG2525DCategorizationData
           {
-            // Version: See detailed specification of this field in the Specification
-            // (MIL-STD-2525D Appendix A.5).
+            @doc("Version: See detailed specification of this field in the Specification
+                (MIL-STD-2525D Appendix A.5).")
             STANAG2525DCategorizationDataVersion version;
-            // Standard Identity: See detailed specification of this field in the Specification
-            // (MIL-STD-2525D Appendix A.5).
+            @doc("Standard Identity: See detailed specification of this field in the Specification
+                (MIL-STD-2525D Appendix A.5).")
             STANAG2525DCategorizationDataStandardIdentity standardIdentity;
-            // Symbol Set: See detailed specification of this field in the Specification
-            // (MIL-STD-2525D Appendix A.5).
+            @doc("Symbol Set: See detailed specification of this field in the Specification \
+                (MIL-STD-2525D Appendix A.5).")
             STANAG2525DCategorizationDataSymbolSet symbolSet;
-            // Status: See detailed specification of this field in the Specification
-            // (MIL-STD-2525D Appendix A.5).
+            @doc("Status: See detailed specification of this field in the Specification \
+                (MIL-STD-2525D Appendix A.5).")
             char status;
-            // HQ/Task Force/Dummy: See detailed specification of this field in the
-            // Specification (MIL-STD-2525D Appendix A.5).
+            @doc("HQ/Task Force/Dummy: See detailed specification of this field in the \
+                Specification (MIL-STD-2525D Appendix A.5).")
             char HQ_TF_Dummy;
-            // Amplifier/Descriptor: See detailed specification of this field in the
-            // Specification (MIL-STD-2525D Appendix A.5).
+            @doc("Amplifier/Descriptor: See detailed specification of this field in the \
+                Specification (MIL-STD-2525D Appendix A.5).")
             STANAG2525DCategorizationDataAmp_Descriptor amp_Descriptor;
-            // Entity: See detailed specification of this field in the Specification
-            // (MIL-STD-2525D Appendix A.5).
+            @doc("Entity: See detailed specification of this field in the Specification \
+                (MIL-STD-2525D Appendix A.5).")
             STANAG2525DCategorizationDataEntity entity;
-            // Entity Type: See detailed specification of this field in the Specification
-            // (MIL-STD-2525D Appendix A.5).
+            @doc("Entity Type: See detailed specification of this field in the Specification \
+                (MIL-STD-2525D Appendix A.5).")
             STANAG2525DCategorizationDataEntityType entityType;
-            // Entity Subtype: See detailed specification of this field in the Specification
-            // (MIL-STD-2525D Appendix A.5).
+            @doc("Entity Subtype: See detailed specification of this field in the Specification \
+                (MIL-STD-2525D Appendix A.5).")
             STANAG2525DCategorizationDataEntitySubType entitySubType;
-            // Sector 1 modifier: See detailed specification of this field in the Specification
-            // (MIL-STD-2525D Appendix A.5).
+            @doc("Sector 1 modifier: See detailed specification of this field in the Specification \
+                (MIL-STD-2525D Appendix A.5).")
             STANAG2525DCategorizationDataSector1Mod sector1Mod;
-            // Sector 2 modifier: See detailed specification of this field in the Specification
-            // (MIL-STD-2525D Appendix A.5).
+            @doc("Sector 2 modifier: See detailed specification of this field in the Specification \
+                (MIL-STD-2525D Appendix A.5).")
             STANAG2525DCategorizationDataSector2Mod sector2Mod;
-            // Conditional Set C Attribute - Symbology Originator ID: See detailed specification
-            // of this field in the Specification (MIL-STD-2525D Appendix A.5).
+            @doc("Conditional Set C Attribute - Symbology Originator ID: See detailed specification \
+                of this field in the Specification (MIL-STD-2525D Appendix A.5).")
             STANAG2525DCategorizationDataCond_symbolOrigID cond_symbolOrigID;
-            // Conditional Set C Attribute - Symbology Originator Symbol Set: See detailed
-            // specification of this field in the Specification (MIL-STD-2525D Appendix A.5).
+            @doc("Conditional Set C Attribute - Symbology Originator Symbol Set: See detailed \
+                specification of this field in the Specification (MIL-STD-2525D Appendix A.5).")
             STANAG2525DCategorizationDataCond_symbolOrigSymbolSet cond_symbolOrigSymbolSet;
-            // Conditional Set C Attribute - Specified From Symbology Originator: See detailed
-            // specification of this field in the Specification (MIL-STD-2525D Appendix A.5).
+            @doc("Conditional Set C Attribute - Specified From Symbology Originator: See detailed \
+                specification of this field in the Specification (MIL-STD-2525D Appendix A.5).")
             STANAG2525DCategorizationDataCond_specFromSymbolOrig cond_specFromSymbolOrig;
           };
 
-          // Union of the specialisations for class MilitaryCategorizationData.
-          // The military categorization data : APP6, 2525...
-#ifdef DDS_XTYPES
+          @doc("Union of the specialisations for class MilitaryCategorizationData. \
+            The military categorization data : APP6, 2525...")
           @appendable
-#endif
           union MilitaryCategorizationData switch (MilitaryCategorizationDataKind)
           {
-            // APP6BCategorizationData option for MilitaryCategorizationData
+            @doc("APP6BCategorizationData option for MilitaryCategorizationData")
             case APP6B_CATEGORIZATION_DATA_KIND : APP6BCategorizationData app6bCategorizationData;
-            // APP6CCategorizationData option for MilitaryCategorizationData
+            @doc("APP6CCategorizationData option for MilitaryCategorizationData")
             case APP6C_CATEGORIZATION_DATA_KIND : APP6CCategorizationData app6cCategorizationData;
-            // STANAG2525CCategorizationData option for MilitaryCategorizationData
+            @doc("STANAG2525CCategorizationData option for MilitaryCategorizationData")
             case STANAG2525C_CATEGORIZATION_DATA_KIND : STANAG2525CCategorizationData stanag2525cCategorizationData;
-            // STANAG2525DCategorizationData option for MilitaryCategorizationData
+            @doc("STANAG2525DCategorizationData option for MilitaryCategorizationData")
             case STANAG2525D_CATEGORIZATION_DATA_KIND : STANAG2525DCategorizationData stanag2525dCategorizationData;
-            // STANAG5516CategorizationData option for MilitaryCategorizationData
+            @doc("STANAG5516CategorizationData option for MilitaryCategorizationData")
             case STANAG5516_CATEGORIZATION_DATA_KIND : STANAG5516CategorizationData stanag5516CategorizationData;
           };
 
-          // Union of the specialisations for class CategorizationData.
-          // The data of an entity used to choose the symbol used to draw the given entity.
-          // Each leaf subclass must define a SymbolSet (as a String) and a SymbolId (as a
-          // method to work out a symbol id from the attributes) that may be used in the PSMs.
-#ifdef DDS_XTYPES
+          @doc("Union of the specialisations for class CategorizationData. \
+            The data of an entity used to choose the symbol used to draw the given entity. \
+            Each leaf subclass must define a SymbolSet (as a string) and a SymbolId (as a \
+            method to work out a symbol id from the attributes) that may be used in the PSMs.")
           @appendable
-#endif
           union CategorizationData switch (CategorizationDataKind)
           {
             // AISCategorizationData option for CategorizationData

@@ -17,40 +17,36 @@ module org
       module DataPayload
       {
 
-        // EntityPayloadManagement is the package of the classes needed to define the
-        // changes to the EntiotyPayload.
+        @doc("EntityPayloadManagement is the package of the classes needed to define the \
+            changes to the EntiotyPayload.")
         module EntityPayloadManagement
         {
 
-          // A string type
-          // Typdef for bounded string type for attribute name of class Parameter.
+          @doc("A string type \
+            Typdef for bounded string type for attribute name of class Parameter.")
           typedef string ParameterName;
 
-          // A string type
-          // Typdef for bounded string type for attribute value of class Parameter.
+          @doc("A string type \
+            Typdef for bounded string type for attribute value of class Parameter.")
           typedef string ParameterValue;
 
-          // A parameter of the EntityPayloadChunk is mapped to a string based name-value
-          // pair. The name is a fully qualified dot-notation expression for the attribute
-          // within the EntityPayload to which this parameter refers.
+          @doc("A parameter of the EntityPayloadChunk is mapped to a string based name-value \
+            pair. The name is a fully qualified dot-notation expression for the attribute \
+            within the EntityPayload to which this parameter refers.")
           struct Parameter
           {
             ParameterName name;
             ParameterValue value;
           };
 
-          // A sequence type, to represent multiple values.
+          @doc("A sequence type, to represent multiple values.")
           typedef sequence<Parameter> EntityPayloadChunkParameters;
 
-          // Fragment of EntityPayload. This class is further defined by the PSM used.
-          // For example, this could be implemented as a list of key/Value pairs.
+          @doc("Fragment of EntityPayload. This class is further defined by the PSM used. \
+            For example, this could be implemented as a list of key/Value pairs.")
           struct EntityPayloadChunk
           {
-#ifdef DDS_XTYPES
             @key org::omg::tex::DataPayload::Util::URI id;
-#else
-            org::omg::tex::DataPayload::Util::URI id;
-#endif
             EntityPayloadChunkParameters parameters;
           };
 

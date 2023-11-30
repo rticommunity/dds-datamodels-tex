@@ -18,207 +18,96 @@ module org
       module DataPayload
       {
 
-        // GroupPayload is the package of the classes needed to define the data exchanged
-        // with a TACSIT system for groups of entities.
+        @doc("GroupPayload is the package of the classes needed to define the data exchanged \
+            with a TACSIT system for groups of entities.")
         module GroupPayload
         {
 
-#ifndef DDS_XTYPES
-          // a simple union type, to represent an optional value
-          union CoordinateUnitsAngleUnit switch (boolean)
-          {
-            // the value when present
-            case TRUE : org::omg::tex::DataPayload::Util::AngleUnit value;
-          };
-
-#endif
-#ifndef DDS_XTYPES
-          // a simple union type, to represent an optional value
-          union CoordinateUnitsCoordOrigin switch (boolean)
-          {
-            // the value when present
-            case TRUE : org::omg::tex::DataPayload::Util::CoordinateOrigin value;
-          };
-
-#endif
-#ifndef DDS_XTYPES
-          // a simple union type, to represent an optional value
-          union CoordinateUnitsProjection switch (boolean)
-          {
-            // the value when present
-            case TRUE : org::omg::tex::DataPayload::Util::Projection value;
-          };
-
-#endif
-#ifndef DDS_XTYPES
-          // a simple union type, to represent an optional value
-          union CoordinateUnitsSpeedUnit switch (boolean)
-          {
-            // the value when present
-            case TRUE : org::omg::tex::DataPayload::Util::SpeedUnit value;
-          };
-
-#endif
-#ifndef DDS_XTYPES
-          // a simple union type, to represent an optional value
-          union CoordinateUnitsDistanceUnit switch (boolean)
-          {
-            // the value when present
-            case TRUE : org::omg::tex::DataPayload::Util::DistanceUnit value;
-          };
-
-#endif
-#ifndef DDS_XTYPES
-          // a simple union type, to represent an optional value
-          union CoordinateUnitsCoordOrientation switch (boolean)
-          {
-            // the value when present
-            case TRUE : org::omg::tex::DataPayload::Util::CoordinateOrientation value;
-          };
-
-#endif
-#ifndef DDS_XTYPES
-          // a simple union type, to represent an optional value
-          union CoordinateUnitsCoordKind switch (boolean)
-          {
-            // the value when present
-            case TRUE : org::omg::tex::DataPayload::Util::CoordinateKind value;
-          };
-
-#endif
-          // A sequence type, to represent multiple values.
+          @doc("A sequence type, to represent multiple values.")
           typedef sequence<org::omg::tex::DataPayload::Util::ExtensionSchema> GroupMetaDataSchemas;
 
-          // A sequence type, to represent multiple values.
+          @doc("A sequence type, to represent multiple values.")
           typedef sequence<org::omg::tex::DataPayload::EntityPayload::EntityRef> GroupPayloadEntities;
 
-          // A string type
-          // Typdef for bounded string type for attribute category of class EntityRelationship.
+          @doc("A string type \
+            Typdef for bounded string type for attribute category of class EntityRelationship.")
           typedef string EntityRelationshipCategory;
 
-          // An item of relationship from an entity to another one. This item is moreover
-          // specified by a category and lives within a time span.
+          @doc("An item of relationship from an entity to another one. This item is moreover \
+            specified by a category and lives within a time span.")
           struct EntityRelationship
           {
-            // Category of the relationship. This is a String whose content is to be specified
-            // by the implementation.
+            @doc("Category of the relationship. This is a string whose content is to be specified \
+                by the implementation.")
             EntityRelationshipCategory category;
-            // A show/hide period.
+            @doc("A show/hide period.")
             org::omg::tex::DataPayload::Util::Period timeSpan;
             org::omg::tex::DataPayload::EntityPayload::EntityRef to;
             org::omg::tex::DataPayload::EntityPayload::EntityRef from;
           };
 
-          // A sequence type, to represent multiple values.
+          @doc("A sequence type, to represent multiple values.")
           typedef sequence<EntityRelationship> GroupPayloadLinks;
 
-          // This class gathers the metadata that are specific to units: unit of distance,
-          // unit of angle and so forth.
+          @doc("This class gathers the metadata that are specific to units: unit of distance, \
+            unit of angle and so forth.")
           struct CoordinateUnits
           {
-#ifdef DDS_XTYPES
             @optional org::omg::tex::DataPayload::Util::AngleUnit angleUnit;
-#else
-            CoordinateUnitsAngleUnit angleUnit;
-#endif
-#ifdef DDS_XTYPES
             @optional org::omg::tex::DataPayload::Util::CoordinateOrigin coordOrigin;
-#else
-            CoordinateUnitsCoordOrigin coordOrigin;
-#endif
-#ifdef DDS_XTYPES
             @optional org::omg::tex::DataPayload::Util::Projection projection;
-#else
-            CoordinateUnitsProjection projection;
-#endif
-            // The speed Unit used by the group. MetersPerSecond is the default.
-#ifdef DDS_XTYPES
+            @doc("The speed Unit used by the group. MetersPerSecond is the default.")
             @optional org::omg::tex::DataPayload::Util::SpeedUnit speedUnit;
-#else
-            CoordinateUnitsSpeedUnit speedUnit;
-#endif
-            // The distance unit used by the group. Meter is the default.
-#ifdef DDS_XTYPES
+            @doc("The distance unit used by the group. Meter is the default.")
             @optional org::omg::tex::DataPayload::Util::DistanceUnit distanceUnit;
-#else
-            CoordinateUnitsDistanceUnit distanceUnit;
-#endif
-#ifdef DDS_XTYPES
             @optional org::omg::tex::DataPayload::Util::CoordinateOrientation coordOrientation;
-#else
-            CoordinateUnitsCoordOrientation coordOrientation;
-#endif
-#ifdef DDS_XTYPES
             @optional org::omg::tex::DataPayload::Util::CoordinateKind coordKind;
-#else
-            CoordinateUnitsCoordKind coordKind;
-#endif
           };
 
-          // The Meta Data of a group: these metadata apply by default to all the entities of
-          // the group. 
-          // These data include the units which are used in all the attributes of all the
-          // entities of the group.
+          @doc("The Meta Data of a group: these metadata apply by default to all the entities of \
+            the group. \
+            These data include the units which are used in all the attributes of all the \
+            entities of the group.")
           struct GroupMetaData
           {
-            // Category of the group of entities. This is a String whose content is to be
-            // specified by the implementation.
-            String category;
-            // An external identifier for the group. This identifier is not bound to be unique
-            // among groups.
-            String identifier;
-            // The publisher of the group.
-            String publisher;
-            // State if the group is read only.
+            @doc("Category of the group of entities. This is a string whose content is to be \
+                specified by the implementation.")
+            string category;
+            @doc("An external identifier for the group. This identifier is not bound to be unique \
+                among groups.")
+            string identifier;
+            @doc("The publisher of the group.")
+            string publisher;
+            @doc("State if the group is read only.")
             boolean isReadOnly;
-            // Description of the security classification (e.g. "Releasable for Internet
-            // transmission").
-            String securityCategory;
-            // Security classification in the preceding policy (e.g. UNCLASSIFED, NATO COSMIC
-            // SECRET).
-            String securityClassification;
-            // Type of security Policy (e.g.: NATO).
-            String securityPolicy;
+            @doc("Description of the security classification (e.g. \"Releasable for Internet \
+                transmission\").")
+            string securityCategory;
+            @doc("Security classification in the preceding policy (e.g. UNCLASSIFED, NATO COSMIC \
+                SECRET).")
+            string securityClassification;
+            @doc("Type of security Policy (e.g.: NATO).")
+            string securityPolicy;
             GroupMetaDataSchemas schemas;
             CoordinateUnits unitsMetaData;
           };
 
-#ifndef DDS_XTYPES
-          // a simple union type, to represent an optional value
-          union GroupPayloadMetaData switch (boolean)
-          {
-            // the value when present
-            case TRUE : GroupMetaData value;
-          };
-
-#endif
-          // The definition of a group of entities as it appears in the exchanges with TACSIT.
-          // Note: the 'id' attribute is used by the TACSIT system to identify the
-          // GroupPayload when the 'identifier' attribute of the GroupMetatData is used by the
-          // system which requested the creation of this GroupPayload to identity internally
-          // it. 'identifier' is so a way to let this using system to find back its data when
-          // getting back the group from TACSIT.
+          @doc("The definition of a group of entities as it appears in the exchanges with TACSIT. \
+            Note: the 'id' attribute is used by the TACSIT system to identify the \
+            GroupPayload when the 'identifier' attribute of the GroupMetatData is used by the \
+            system which requested the creation of this GroupPayload to identity internally \
+            it. 'identifier' is so a way to let this using system to find back its data when \
+            getting back the group from TACSIT.")
           struct GroupPayload
           {
-            // A Uniform Resource Identifier (URI) that uniquely identifies the object.
-#ifdef DDS_XTYPES
+            @doc("A Uniform Resource Identifier (URI) that uniquely identifies the object.")
             @key org::omg::tex::DataPayload::Util::URI id;
-#else
-            org::omg::tex::DataPayload::Util::URI id;
-#endif
-            // Version of the group.
-            String version;
+            @doc("Version of the group.")
+            string version;
             GroupPayloadEntities entities;
-#ifdef DDS_XTYPES
             @optional GroupMetaData metaData;
-#else
-            GroupPayloadMetaData metaData;
-#endif
             GroupPayloadLinks links;
           };
-#ifndef DDS_XTYPES
-#pragma keylist GroupPayload id
-#endif
 
         };
       };
