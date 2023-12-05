@@ -87,7 +87,7 @@ module org
           @doc("Enumeration of the Cargo Categories defined by the IMO")
           enum AISCargoCategory
           {
-            @doc("The ship\'s cargo has no specific IMO hazard or pollutant \
+            @doc("The ship's cargo has no specific IMO hazard or pollutant \
                 category.")
             GENERAL_CARGO,
             @doc("The ship is carrying cargo in IMO hazard or pollutant \
