@@ -14,7 +14,6 @@ different changes are explained in their own readme file.
 
 The branches in this repo follow this pattern:
 
- - main: this contains the latest enhanced version
  - version/x.y\[-(version_specifier)\]\[-enhanced\]
 
 For example, `version/2.0-beta-enhanced`
