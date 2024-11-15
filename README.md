@@ -1,8 +1,16 @@
 # dds-datamodels-mdpnp
 
-
 This datamodel is an enhanced version of the TEX 1.0 datamodel that you can
-find here: https://www.omg.org/spec/TEX/
+find here: https://www.omg.org/spec/TEX/1.1
+Nothing herein limits your rights under, or grants you rights that supersede,
+the applicable license from OMG, and it is your responsibility to ensure that
+your use of this software complies with that license.
+
+This software is provided "as is", with no warranty of any type, including any
+warranty for fitness for any purpose. RTI is under no obligation to maintain or
+support the software. RTI shall not be liable for any incidental or
+consequential damages arising out of the use or inability to use the software.
+This notice must accompany any distributed copies of the software.
 
 
 ## Repo Organization
@@ -17,8 +25,8 @@ different changes are explained in their own readme file.
 
 The branches in this repo follow this pattern:
 
- - main: this contains the latest original version
  - version/x.y\[-(version_specifier)\]\[-enhanced\]
+
 
 For example, `version/2.0-beta-enhanced`
 
@@ -39,7 +47,8 @@ present. For example: `xml`, `json`...
 
 ## Changes on the Datamodel
 
-This enhanced version contains several changes in the datamodel for the TEX version 1.0:
+This enhanced version contains several changes in the datamodel for the TEX
+version 1.0:
 
  - Replaced the key definition with the IDL 4.2 `@key` annotation.
  - Used the extensibility annotation from IDL 4.2
