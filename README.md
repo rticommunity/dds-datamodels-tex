@@ -27,7 +27,6 @@ The branches in this repo follow this pattern:
 
  - version/x.y\[-(version_specifier)\]\[-enhanced\]
 
-
 For example, `version/2.0-beta-enhanced`
 
 The `version_specifier` is added if a non-final version is being used. This
@@ -78,6 +77,8 @@ absolute path where the `dds-datamodels-utils` repo is located, for example:
 ```
 cmake .. -DDDS_DATAMODELS_UTILS_DIR=/Users/angel/datamodels/dds-datamodels-utils
 ```
+**NOTE**: you can disable the generation of the library by setting
+`DDS_DATAMODELS_BUILD_CXX11_LIB=OFF`
 
 ## Generating XML files
 
